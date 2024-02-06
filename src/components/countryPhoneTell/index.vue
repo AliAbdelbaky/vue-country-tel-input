@@ -89,7 +89,6 @@ async function handleSelectCountry() {
 
   const country = options.value[modelValues.value?.country] as SingleOption
 
-  console.log(country)
   loading.value.dialingCode = true
   try {
     const response = await fetch(urls.dialingCode + country.allData.cca3)

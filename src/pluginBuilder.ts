@@ -1,7 +1,8 @@
 import type {App} from 'vue'
-import {VueCountryPhoneInput} from './components/index.ts'
+import {VueCountryTelInput} from './components/index.ts'
 import {type IProps} from './assets/props.type.ts'
 import {type ThemeType} from './assets/types/theme.type.ts'
+
 export type ThemeOverride = ThemeType
 
 export default {
@@ -12,14 +13,16 @@ export default {
         showLabel: true,
         showRequired: true,
         selectWidth: '20%',
+        themeOverride: undefined
     }) => {
-        app.component('VueCountryPhoneInput', VueCountryPhoneInput)
+        app.component('VueCountryTelInput', VueCountryTelInput)
         app.provide('msg', options.msg)
         app.provide('size', options.size)
         app.provide('label', options.label)
         app.provide('showLabel', options.showLabel)
         app.provide('showRequired', options.showRequired)
         app.provide('selectWidth', options.selectWidth)
+        app.provide('themeOverride', options.themeOverride)
     }
 }
-export {VueCountryPhoneInput}    // export the component and the theme type
+export {VueCountryTelInput}    // export the component and the theme type

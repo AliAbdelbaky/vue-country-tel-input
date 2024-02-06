@@ -105,7 +105,6 @@ function handleSearch(query?: string | null) {
 
 
 function handleSelectOption(item: SingleOption) {
-  console.log(item.value)
   selectedOption.value = item.value
   togglePopover(false)
   searchInput.value = null

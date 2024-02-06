@@ -9,7 +9,7 @@ inputRef.value?.reset()
 
 <template>
   <div class="wrapper">
-    <VueCountryPhoneInput  ref="inputRef"/>
+    <VueCountryTelInput  ref="inputRef"/>
     <button @click="reset">Reset</button>
   </div>
 </template>

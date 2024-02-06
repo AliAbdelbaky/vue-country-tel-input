@@ -15,7 +15,6 @@ export default function themeConfig(theme: ThemeType, size: Sizes, prefix?: stri
         // @ts-ignore
         const value = Object.values(obj[key])[index];
         cssClasses += `${prefix}${key}: ${value};`;
-        console.log(cssClasses, 'cssClasses', key, obj, size, prefix)
         return cssClasses;
     }
 

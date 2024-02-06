@@ -1,15 +1,15 @@
-# VueCountryPhoneInput @beta
+# VueCountryTelInput @beta
 
 ## Description
 
-VueCountryPhoneInput is a Vue.js plugin that provides a user-friendly input component for selecting a country and entering
+VueCountryTelInput is a Vue.js plugin that provides a user-friendly input component for selecting a country and entering
 a telephone number. It offers built-in validation to ensure the entered phone number is valid for the selected country.
 
 The plugin utilizes the REST Countries API to fetch country data, allowing users to easily select their country from a
 dropdown list. It also leverages the libphonenumber-js library for phone number parsing and validation, ensuring that
 the entered phone number adheres to the expected format for the selected country.
 
-With VueCountryPhoneInput, you can enhance your Vue.js applications with a seamless and intuitive country and telephone
+With VueCountryTelInput, you can enhance your Vue.js applications with a seamless and intuitive country and telephone
 number input, all while ensuring the accuracy and validity of the entered phone numbers.
 
 ## Features
@@ -34,14 +34,14 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 
 ## Changelog
 
-[Go to Github Releases](https://www.npmjs.com/package/vue-country-phone-input/releases)
+[Go to Github Releases](https://www.npmjs.com/package/vue-country-tel-input/releases)
 
 ## Getting started
 
 - Install the plugin:
 
   ```sh
-  npm i vue-country-phone-input@latest
+  npm i vue-country-tel-input@latest
   ```
 
 - Add the plugin into your app:
@@ -49,22 +49,22 @@ number input, all while ensuring the accuracy and validity of the entered phone 
   ```javascript
   import {createApp} from 'vue'
   
-  import VueCountryPhoneInput from 'vue-country-phone-input';
-  import 'vue-country-phone-input/styles.css';
+  import VueCountryTelInput from 'vue-country-tel-input';
+  import 'vue-country-tel-input/styles.css';
 
   const app = createApp(App);
-  app.use(VueCountryPhoneInput);
+  app.use(VueCountryTelInput);
   
   app.mount('#app');
   ```
 
   [More info on installation](#installation)
 
-- Use the `vue-country-phone-input` component:
+- Use the `vue-country-tel-input` component:
 
   ```html
   <template>
-    <VueCountryPhoneInput />
+    <VueCountryTelInput />
   </template>
   ```
 
@@ -73,7 +73,7 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 ### npm
 
 ```bash
-  npm i vue-country-phone-input@latest
+  npm i vue-country-tel-input@latest
 ```
 
 Install the plugin into Vue:
@@ -81,11 +81,11 @@ Install the plugin into Vue:
 ```javascript
   import {createApp} from 'vue'
 
-  import VueCountryPhoneInput from 'vue-country-phone-input';
-  import 'vue-country-phone-input/styles.css';
+  import VueCountryTelInput from 'vue-country-tel-input';
+  import 'vue-country-tel-input/styles.css';
   
   const app = createApp(App);
-  app.use(VueCountryPhoneInput);
+  app.use(VueCountryTelInput);
   
   app.mount('#app');
 ```
@@ -94,7 +94,7 @@ Or use the component directly:
 ```vue
 
 <template>
-  <VueCountryPhoneInput ref="inputRef"/>
+  <VueCountryTelInput ref="inputRef"/>
   <button @click="validatePhone">validate</button>
   <button @click="resetPhone">reset</button>
   <p>{{phone}}</p>
@@ -103,8 +103,8 @@ Or use the component directly:
 <script setup lang="ts">
   import {ref} from 'vue';
   // important 
-  import {VueCountryPhoneInput} from 'vue-country-phone-input';
-  import 'vue-country-phone-input/styles.css';
+  import {VueCountryTelInput} from 'vue-country-tel-input';
+  import 'vue-country-tel-input/styles.css';
 
   interface ValidatePayload {
     valid: boolean;
@@ -132,7 +132,7 @@ Or use the component directly:
 </script>
 ```
 
-> View all available options in [Props](https://www.npmjs.com/package/vue-country-phone-input).
+> View all available options in [Props](https://www.npmjs.com/package/vue-country-tel-input).
 
 
 | **Prop**            | **Type** | **Default** **Value** | **Accepted** **Values**                                |
@@ -235,7 +235,7 @@ interface TransitionsType {
 ```
 ```html
 <template>
-  <VueCountryPhoneInput :themeOverride="themeOverride"/>
+  <VueCountryTelInput :themeOverride="themeOverride"/>
 </template>
 ```
 
