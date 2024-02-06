@@ -1,1 +1,1 @@
-export { default as VueCountryTellInput } from './countryPhoneTell/index.vue'
+export { default as VueCountryTelInput } from './countryPhoneTell/index.vue'

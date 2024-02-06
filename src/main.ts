@@ -1,6 +1,6 @@
 import {createApp} from 'vue'
 import App from './App.vue'
-import VueCountryTelInput from './vue_country_telI_input.ts'
+import VueCountryTelInput from './pluginBuilder.ts'
 
 const app = createApp(App)
 

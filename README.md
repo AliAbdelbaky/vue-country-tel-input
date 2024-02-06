@@ -1,4 +1,4 @@
-# VueCountryTellInput @beta
+# VueCountryTelInput @beta
 
 ## Description
 
@@ -26,7 +26,7 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 
 ### International Telephone Input with Vue.
 
-[![npm](https://img.shields.io/badge/npm-f00?logo=npm&logoColor=wight)](https://www.npmjs.com/package/vue-country-tell-input) [![stars](https://img.shields.io/badge/github-000?logo=github&logoColor=wight)](https://github.com/AliAbdelbaky/vue-country-tell-number)
+[![npm](https://img.shields.io/badge/npm-f00?logo=npm&logoColor=wight)](https://www.npmjs.com/package/vue-country-tel-input) [![stars](https://img.shields.io/badge/github-000?logo=github&logoColor=wight)](https://github.com/AliAbdelbaky/vue-country-tell-number)
 
 ## Documentation and Demo
 
@@ -34,14 +34,14 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 
 ## Changelog
 
-[Go to Github Releases](https://www.npmjs.com/package/vue-country-tell-input/releases)
+[Go to Github Releases](https://www.npmjs.com/package/vue-country-tel-input/releases)
 
 ## Getting started
 
 - Install the plugin:
 
   ```sh
-  npm i vue-country-tell-input@latest
+  npm i vue-country-tel-input@latest
   ```
 
 - Add the plugin into your app:
@@ -49,22 +49,22 @@ number input, all while ensuring the accuracy and validity of the entered phone 
   ```javascript
   import {createApp} from 'vue'
   
-  import VueCountryTellInput from 'vue-country-tell-input';
-  import 'vue-country-tell-input/styles.css';
+  import VueCountryTelInput from 'vue-country-tel-input';
+  import 'vue-country-tel-input/styles.css';
 
   const app = createApp(App);
-  app.use(VueCountryTellInput);
+  app.use(VueCountryTelInput);
   
   app.mount('#app');
   ```
 
   [More info on installation](#installation)
 
-- Use the `vue-country-tell-input` component:
+- Use the `vue-country-tel-input` component:
 
   ```html
   <template>
-    <VueCountryTellInput />
+    <VueCountryTelInput />
   </template>
   ```
 
@@ -73,7 +73,7 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 ### npm
 
 ```bash
-  npm i vue-country-tell-input@latest
+  npm i vue-country-tel-input@latest
 ```
 
 Install the plugin into Vue:
@@ -81,11 +81,11 @@ Install the plugin into Vue:
 ```javascript
   import {createApp} from 'vue'
 
-  import VueCountryTellInput from 'vue-country-tell-input';
-  import 'vue-country-tell-input/styles.css';
+  import VueCountryTelInput from 'vue-country-tel-input';
+  import 'vue-country-tel-input/styles.css';
   
   const app = createApp(App);
-  app.use(VueCountryTellInput);
+  app.use(VueCountryTelInput);
   
   app.mount('#app');
 ```
@@ -94,7 +94,7 @@ Or use the component directly:
 ```vue
 
 <template>
-  <VueCountryTellInput ref="inputRef"/>
+  <VueCountryTelInput ref="inputRef"/>
   <button @click="validatePhone">validate</button>
   <button @click="resetPhone">reset</button>
   <p>{{phone}}</p>
@@ -103,8 +103,8 @@ Or use the component directly:
 <script setup lang="ts">
   import {ref} from 'vue';
   // important 
-  import VueCountryTellInput from 'vue-country-tell-input';
-  import 'vue-country-tell-input/styles.css';
+  import {VueCountryTelInput} from 'vue-country-tel-input';
+  import 'vue-country-tel-input/styles.css';
 
   interface ValidatePayload {
     valid: boolean;
@@ -132,7 +132,7 @@ Or use the component directly:
 </script>
 ```
 
-> View all available options in [Props](https://www.npmjs.com/package/vue-country-tell-input).
+> View all available options in [Props](https://www.npmjs.com/package/vue-country-tel-input).
 
 
 | **Prop**            | **Type** | **Default** **Value** | **Accepted** **Values**                                |
@@ -235,7 +235,7 @@ interface TransitionsType {
 ```
 ```html
 <template>
-  <VueCountryTellInput :themeOverride="themeOverride"/>
+  <VueCountryTelInput :themeOverride="themeOverride"/>
 </template>
 ```
 
@@ -245,13 +245,13 @@ interface TransitionsType {
 Clone the project
 
 ```bash
-  git clone https://github.com/AliAbdelbaky/vue-country-tell-number
+  git clone https://github.com/AliAbdelbaky/vue-country-tel-number
 ```
 
 Go to the project directory
 
 ```bash
-  cd vue-country-tell-number
+  cd vue-country-tel-number
 ```
 
 Install dependencies
@@ -280,7 +280,7 @@ _**or**_
 ## License
 
 Copyright (c) 2024 Ali Abdelbaqy.
-Released under the [MIT License](https://github.com/AliAbdelbaky/vue-country-tell-number).
+Released under the [MIT License](https://github.com/AliAbdelbaky/vue-country-tel-number).
 
 made with &#x2764; by [Ali Abdelbaqy](https://github.com/AliAbdelbaky).
 

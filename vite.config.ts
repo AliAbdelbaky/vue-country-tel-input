@@ -8,7 +8,7 @@ export default defineConfig({
         vue(),
         typescript2({
             check: false,
-            include: ["src/vue_country_telI_input.ts","src/components/index.ts", "src/components/*/*.vue"],
+            include: ["src/pluginBuilder.ts","src/components/index.ts", "src/components/*/*.vue"],
             tsconfigOverride: {
                 compilerOptions: {
                     sourceMap: true,
@@ -22,9 +22,9 @@ export default defineConfig({
     build: {
         cssCodeSplit: false,
         lib: {
-            entry: 'src/vue_country_telI_input.ts',
+            entry: 'src/pluginBuilder.ts',
             formats: ['es', 'cjs'],
-            name: 'vue_country_telI_input',
+            name: 'pluginBuilder',
             fileName: (format) => format === 'es' ? "index.js" : `index.cjs`
         },
         rollupOptions: {
