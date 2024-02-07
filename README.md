@@ -28,9 +28,7 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 
 [![npm](https://img.shields.io/badge/npm-f00?logo=npm&logoColor=wight)](https://www.npmjs.com/package/vue-tel-tel-input) [![stars](https://img.shields.io/badge/github-000?logo=github&logoColor=wight)](https://github.com/AliAbdelbaky/vue-country-tell-number)
 
-## Documentation and Demo
 
-[Visit the website](https://vue-tel-input.iamstevendao.com/)
 
 ## Changelog
 
