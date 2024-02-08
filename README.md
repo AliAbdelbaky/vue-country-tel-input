@@ -26,7 +26,7 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 
 ### International Telephone Input with Vue 3.
 
-[![npm](https://img.shields.io/badge/npm-f00?logo=npm&logoColor=wight)](https://www.npmjs.com/package/vue-tel-tel-input) [![stars](https://img.shields.io/badge/github-000?logo=github&logoColor=wight)](https://github.com/AliAbdelbaky/vue-country-tell-number)
+[![npm](https://img.shields.io/badge/npm-f00?logo=npm&logoColor=wight)](https://www.npmjs.com/package/@aiabdelbaqy/vue-country-tel-input) [![stars](https://img.shields.io/badge/github-000?logo=github&logoColor=wight)](https://github.com/AliAbdelbaky/vue-country-tell-number)
 
 
 
