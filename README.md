@@ -71,7 +71,7 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 ### npm
 
 ```bash
-  npm i vue-country-tel-input@latest
+  npm i @aiabdelbaqy/vue-country-tel-input@latest
 ```
 
 Install the plugin into Vue:
