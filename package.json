@@ -1,5 +1,5 @@
 {
-  "name": "vue-country-tel-input",
+  "name": "@aiabdelbaqy/vue-country-tel-input",
   "private": false,
   "version": "0.0.1",
   "keywords": [
@@ -60,5 +60,15 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vue-tsc": "^1.8.25"
-  }
+  },
+  "description": "VueCountryTelInput is a Vue.js plugin that provides a user-friendly input component for selecting a country and entering\r a telephone number. It offers built-in validation to ensure the entered phone number is valid for the selected country.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliAbdelbaky/vue-country-tel-input.git"
+  },
+  "author": "Ali abdelbaqy <ali.abdelbaky2000@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/AliAbdelbaky/vue-country-tel-input/issues"
+  },
+  "homepage": "https://github.com/AliAbdelbaky/vue-country-tel-input#readme"
 }

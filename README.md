@@ -32,14 +32,14 @@ number input, all while ensuring the accuracy and validity of the entered phone 
 
 ## Changelog
 
-[Go to Github Releases](https://www.npmjs.com/package/vue-country-tel-input/releases)
+[Go to Github Releases](https://www.npmjs.com/package/@aiabdelbaqy/vue-country-tel-input/releases)
 
 ## Getting started
 
 - Install the plugin:
 
   ```sh
-  npm i vue-country-tel-input@latest
+  npm i @aiabdelbaqy/vue-country-tel-input@latest
   ```
 
 - Add the plugin into your app:
@@ -47,8 +47,8 @@ number input, all while ensuring the accuracy and validity of the entered phone 
   ```javascript
   import {createApp} from 'vue'
   
-  import VueCountryTelInput from 'vue-country-tel-input';
-  import 'vue-country-tel-input/styles.css';
+  import VueCountryTelInput from '@aiabdelbaqy/vue-country-tel-input'
+  import '@aiabdelbaqy/vue-country-tel-input/styles.css';
 
   const app = createApp(App);
   app.use(VueCountryTelInput);
@@ -79,8 +79,8 @@ Install the plugin into Vue:
 ```javascript
   import {createApp} from 'vue'
 
-  import VueCountryTelInput from 'vue-country-tel-input';
-  import 'vue-country-tel-input/styles.css';
+  import VueCountryTelInput from '@aiabdelbaqy/vue-country-tel-input'
+  import '@aiabdelbaqy/vue-country-tel-input/styles.css';
   
   const app = createApp(App);
   app.use(VueCountryTelInput);
@@ -101,8 +101,8 @@ Or use the component directly:
 <script setup lang="ts">
   import {ref} from 'vue';
   // important 
-  import {VueCountryTelInput} from 'vue-country-tel-input';
-  import 'vue-country-tel-input/styles.css';
+  import {VueCountryTelInput} from '@aiabdelbaqy/vue-country-tel-input'
+  import '@aiabdelbaqy/vue-country-tel-input/styles.css';
 
   interface ValidatePayload {
     valid: boolean;
@@ -130,7 +130,7 @@ Or use the component directly:
 </script>
 ```
 
-> View all available options in [Props](https://www.npmjs.com/package/vue-country-tel-input).
+> View all available options in [Props](https://www.npmjs.com/package/@aiabdelbaqy/vue-country-tel-input).
 
 
 | **Prop**            | **Type** | **Default** **Value** | **Accepted** **Values**                                |
