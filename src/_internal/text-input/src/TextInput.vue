@@ -4,12 +4,10 @@ import {textInputProps, TextInputValue} from './interface.ts'
 import LoadingIcon from "@/components/countryPhoneTell/partial/loadingIcon.vue";
 
 export default defineComponent({
-  name: 'ATellInput',
+  name: 'ATextInput',
   components: {LoadingIcon},
   props: textInputProps,
-  emits: {
-    'update:value': (value: TextInputValue) => value
-  },
+  emits: ['update:value'],
   setup(props, {emit}) {
     const number = ref<TextInputValue>(props.value)
     const attributes = computed(() => ({

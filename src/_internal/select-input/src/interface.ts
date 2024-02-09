@@ -1,29 +1,38 @@
-export const SelectInputProps = {
-    modelValue: {
-        type: [String, Number],
+import type {CountryOption,SingleOption} from "@/_utils/country.types.ts";
+import {ExtractBasePropsType} from "@/_utils/extractProps.ts";
+
+import type {PropType} from 'vue'
+
+export const selectInputProps = {
+    value: {
+        type: String || null,
         default: ''
     },
-    size: {
-        type: String,
-        default: 'medium'
+    loading: {
+        type: Boolean,
+        default: false
     },
-    placeholder: String,
-    disabled: Boolean,
-    clearable: Boolean,
-    autocomplete: {
-        type: String,
-        default: 'off'
+    disabled: {
+        type: Boolean,
+        default: false
     },
-    name: String,
-    readonly: Boolean,
-    autofocus: Boolean,
-    tabindex: Number,
-    onClear: Function,
-    onFocus: Function,
-    onBlur: Function,
-    onChange: Function,
-    onInput: Function,
-    onKeydown: Function,
-    onKeyup: Function,
-    'onUpdate:modelValue': Function
-} as const
+    placeholder: {
+        type: String,
+        default: 'country'
+    },
+    options: {
+        type: Object as PropType<CountryOption>,
+        default: ()=>{}
+    },
+    theme: {
+        type: String || null,
+        default: null
+    },
+    invalid: {
+        type: Boolean,
+        default: false
+    }
+}
+
+export type _SingleOption = SingleOption;
+export type SelectInputProps = ExtractBasePropsType<typeof selectInputProps>;

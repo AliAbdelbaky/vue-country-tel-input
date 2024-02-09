@@ -1,17 +1,20 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-const inputRef = ref<any>(null)
-const reset = ()=>{
-inputRef.value?.reset()
-}
+import {ref} from 'vue'
 import CountryTelInput from '@/country-tel-input/src/CountryTelInput.vue'
 
+const inputRef = ref<any>(null)
+const reset = () => {
+  inputRef.value?.reset()
+}
+
+const country = ref(null)
 </script>
 
 <template>
   <div class="wrapper">
-    <CountryTelInput />
-    <VueCountryTelInput  ref="inputRef"/>
+    <CountryTelInput v-model:country-value="country"/>
+    {{ country }}
+<!--    <VueCountryTelInput ref="inputRef"/>-->
     <button @click="reset">Reset</button>
   </div>
 </template>

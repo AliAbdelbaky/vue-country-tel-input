@@ -12,7 +12,10 @@ export const textInputProps = {
         type: String || null,
         default: null
     },
-    placeholder: String,
+    placeholder: {
+        type: String || null,
+        default: 'please input'
+    },
     invalid: {
         type: Boolean,
         default: false

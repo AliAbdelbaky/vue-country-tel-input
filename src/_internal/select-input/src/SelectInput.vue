@@ -1,46 +1,137 @@
 <script lang="ts">
-import {defineComponent} from "vue";
+import {computed, defineComponent, h, nextTick, ref, watch} from "vue";
+import {type _SingleOption, selectInputProps} from './interface.ts'
+
+import OptionIcon from "./partials/optIcon.vue";
+import OptionLabel from "./partials/optLabel.vue";
+
+import LoadingIcon from "@/components/countryPhoneTell/partial/loadingIcon.vue";
+import {createPopper} from "@popperjs/core";
+import {CountryOption} from "@/_utils/country.types.ts";
+
+import {APopover} from '@/_internal/popover'
+
+const renderLabel = (option: _SingleOption) => {
+
+  const flag = h(OptionIcon, {option, width: 'var(--a-text)'})
+  const text = h(OptionLabel, {option, fontSize: 'var(--a-text)'})
+
+  const container = (...args: any) => h('div', {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      width: '100%',
+    }
+  }, args)
+  return container(flag, text)
+}
 
 export default defineComponent({
-  name: 'ATellSelect',
-  props: {
-    theme: {
-      type: Object,
-      default: () => ({})
-    },
-    placeholder: {
-      type: String,
-      default: ''
-    },
-    invalid: {
-      type: Boolean,
-      default: false
-    },
-    selectedOption: {
-      type: String,
-      default: ''
-    },
-    filteredOption: {
-      type: Array,
-      default: () => []
-    }
-  },
-  setup() {
-    return {
-      searchInput: ''
-    }
-  },
-  methods: {
-    togglePopover(isOpen) {
-      if (isOpen) {
-        this.$refs.selectRef.focus()
+  name: 'ASelectInput',
+  components: {APopover, LoadingIcon},
+  props: selectInputProps,
+  emits: ['update:value'],
+  setup(props, {emit}) {
+
+    const attributes = computed(() => ({
+      class: {invalid: props.invalid},
+      style: props.theme
+    }))
+    const searchInput = ref<string | null>(null)
+
+    const selectRef = ref<HTMLElement | null>(null)
+    const selectValue = ref(props.value)
+    const filteredOption = ref<CountryOption>(props.options || {})
+
+    const popoverRef = ref()
+    const showPopover = ref(false)
+    const popoverVars = ref({})
+
+    const debounceTimer = ref<number | undefined>(undefined)
+    const createPopover = () => {
+      const ele = selectRef?.value as HTMLElement
+      popoverVars.value = {
+        // maxHeight,
+        maxWidth: ele.offsetWidth + 'px',
       }
-    },
-    renderLabel(option) {
-      return option?.label
+      createPopper(ele, popoverRef.value.$el, {placement: 'bottom'});
+    }
+
+    function togglePopover(value: boolean) {
+      setTimeout(async () => {
+        showPopover.value = value
+        if (!showPopover.value) return
+        await nextTick(() => {
+          createPopover()
+        })
+      }, 500)
+    }
+
+    function handleUpdateValue(item: _SingleOption) {
+      selectValue.value = item.value
+      togglePopover(false)
+      searchInput.value = null
+      emit('update:value', selectValue.value)
+    }
+
+    function handleSearch(query?: string | null) {
+      clearTimeout(debounceTimer.value);
+      const exists = query && query.trim().length > 0
+      const options = props.options || {}
+      if (!exists) {
+        filteredOption.value = options
+        return
+      }
+
+
+      debounceTimer.value = setTimeout(() => triggerSearch(), 500);
+      const triggerSearch = () => {
+        const searchTextLower = query.toLowerCase().trim();
+        const indexedDataset = options
+
+        const filteredList: any = {};
+
+        for (const key in indexedDataset) {
+          if (indexedDataset.hasOwnProperty(key)) {
+            const item = indexedDataset[key];
+            if (key.toLowerCase().includes(searchTextLower)) {
+              filteredList[key] = item;
+            }
+          }
+        }
+        filteredOption.value = filteredList
+      }
+    }
+
+    watch(searchInput, () => {
+      togglePopover(!!searchInput.value && !!searchInput.value.trim().length)
+      handleSearch(searchInput.value)
+    })
+    watch(() => props.options, () => {
+      filteredOption.value = props.options || {}
+    })
+    watch(() => props.value, (value) => {
+      selectValue.value = value
+    })
+
+    return {
+      attributes,
+
+      selectRef,
+      selectValue,
+      filteredOption,
+
+      searchInput,
+      popoverRef,
+      showPopover,
+      popoverVars,
+
+      togglePopover,
+      renderLabel,
+      handleUpdateValue
     }
   }
-
 })
 
 </script>
@@ -48,32 +139,49 @@ export default defineComponent({
 <template>
   <div
       ref="selectRef"
-      :class="{invalid}"
-      :style="theme"
       class="a-tell-select"
+      v-bind="attributes"
   >
     <div class="a-base-selection-label">
       <input
           v-model="searchInput"
           class="a-base-selection-input"
           placeholder=""
-          tabindex="-1"
           @focusin="togglePopover(true)"
           @focusout="togglePopover(false)"
       >
       <div class="a-input__placeholder">
         <div class="a-base-selection-overlay">
           <component
-              :is="renderLabel(filteredOption[selectedOption])"
-              v-if="selectedOption && !searchInput?.trim().length"
+              :is="renderLabel(filteredOption[selectValue])"
+              v-if="selectValue && !searchInput?.trim().length"
           />
           <template v-else>
-            {{ selectedOption || !!searchInput?.trim().length ? '' : placeholder }}
+            {{ selectValue || !!searchInput?.trim().length ? '' : placeholder }}
           </template>
+        </div>
+      </div>
+      <div class="a-input__suffix">
+        <div v-if="loading" aria-label="loading" class="n-base-loading n-base-suffix" role="img">
+          <div class="n-base-loading__placeholder">
+            <LoadingIcon/>
+          </div>
         </div>
       </div>
     </div>
     <div class="a-base-selection__state-border"/>
+    <teleport to="body">
+      <APopover
+          v-show="showPopover"
+          ref="popoverRef"
+          :active-value="selectValue"
+          :options="filteredOption"
+          :renderLabel="renderLabel"
+          :styles="popoverVars"
+          :theme="theme"
+          @update:select="handleUpdateValue"
+      />
+    </teleport>
   </div>
 </template>
 <style lang="scss" scoped>
