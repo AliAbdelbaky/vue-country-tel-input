@@ -101,6 +101,7 @@ export default defineComponent({
         loading.value.country = false
       }
     }
+
     async function handleSelectCountry() {
       if (!modelValues?.country) return
 
@@ -116,12 +117,9 @@ export default defineComponent({
         loading.value.dialingCode = false
       }
     }
-    watch(() => modelValues.country, (_) => {
-      emit('update:countryValue', modelValues.country)
-    })
-    watch(() => modelValues.phone, (_) => {
-      emit('update:phoneValue', modelValues.phone)
-    })
+
+    watch(() => modelValues.country, () => emit('update:countryValue', modelValues.country))
+    watch(() => modelValues.phone, () => emit('update:phoneValue', modelValues.phone))
 
     onMounted(async () => {
       await fetchCountries()
@@ -167,7 +165,7 @@ export default defineComponent({
     </a-text-input>
   </a-input-group>
   <pre>
-{{countryCCA}}
+{{ countryCCA }}
   {{ modelValues }}
   </pre>
 </template>

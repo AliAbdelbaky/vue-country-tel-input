@@ -10,12 +10,17 @@ export default defineComponent({
     'update:select': (value: SingleOption) => value
   },
   setup(props) {
-
-    return {
-      attributes:computed(() => ({
+    const attributes = computed(() => ({
+      style:{
         width: props.style?.maxWidth,
         maxWidth: props.style?.maxWidth
-      }))
+      }
+    }))
+    console.log(attributes.value)
+
+
+    return {
+      attributes
     }
   }
 })

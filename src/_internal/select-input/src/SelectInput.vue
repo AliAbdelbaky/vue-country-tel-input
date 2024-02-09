@@ -51,6 +51,7 @@ export default defineComponent({
     const debounceTimer = ref<number | undefined>(undefined)
     const createPopover = () => {
       const ele = selectRef?.value as HTMLElement
+      console.log(ele.offsetWidth)
       popoverVars.value = {
         // maxHeight,
         maxWidth: ele.offsetWidth + 'px',
@@ -65,7 +66,7 @@ export default defineComponent({
         await nextTick(() => {
           createPopover()
         })
-      }, 500)
+      }, 150)
     }
 
     function handleUpdateValue(item: _SingleOption) {
@@ -177,7 +178,7 @@ export default defineComponent({
           :active-value="selectValue"
           :options="filteredOption"
           :renderLabel="renderLabel"
-          :styles="popoverVars"
+          :style="popoverVars"
           :theme="theme"
           @update:select="handleUpdateValue"
       />
