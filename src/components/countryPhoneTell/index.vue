@@ -237,11 +237,6 @@ defineExpose({
       </div>
     </div>
   </div>
-  <!--  // validate button-->
-  <!--  <button @click="outValidate">Validate</button>-->
-  <!--  <pre style="margin-top: 2rem">-->
-  <!--    {{ _theme }}-->
-  <!--  </pre>-->
 </template>
 
 <style>

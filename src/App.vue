@@ -4,11 +4,13 @@ const inputRef = ref<any>(null)
 const reset = ()=>{
 inputRef.value?.reset()
 }
+import CountryTelInput from '@/country-tel-input/src/CountryTelInput.vue'
 
 </script>
 
 <template>
   <div class="wrapper">
+    <CountryTelInput />
     <VueCountryTelInput  ref="inputRef"/>
     <button @click="reset">Reset</button>
   </div>
