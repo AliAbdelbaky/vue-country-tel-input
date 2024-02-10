@@ -31,6 +31,10 @@ export const selectInputProps = {
     invalid: {
         type: Boolean,
         default: false
+    },
+    width:{
+        type:String,
+        default:'20%'
     }
 }
 

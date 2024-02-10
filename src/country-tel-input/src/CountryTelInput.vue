@@ -1,14 +1,15 @@
 <script lang="ts">
+import {computed, defineComponent, onMounted, reactive, ref, watch} from 'vue'
+import parsePhoneNumber, {isPossiblePhoneNumber, isValidPhoneNumber} from "libphonenumber-js";
+
 import {AInputGroup, ASelectInput, ATextInput} from '@/_internal/index.ts'
 import {countryTelInputProps} from './interface.ts'
 
-import {computed, defineComponent, onMounted, reactive, ref, watch} from 'vue'
-import type {CountryOption, CountryType} from "@/_utils/country.types.ts";
-import useThemeTansformer from "@/composables/themeTransformer.ts";
-import BaseTheme from "@/components/countryPhoneTell/data.ts";
-import CountryPlaceholderData from "@/assets/countryPlaceholder.ts";
-import type {SingleOption} from "@/assets/types/country.type.ts";
-import parsePhoneNumber, {isPossiblePhoneNumber, isValidPhoneNumber} from "libphonenumber-js";
+import type {CountryOption, CountryType,SingleOption} from "@/_utils/country.types.ts";
+import {ABaseTheme} from "../styles";
+import countryDataPlaceholder from "@/_placeholder/countries.ts"
+
+import {mergeThemes, themeConfig} from "@/_utils/themeHandler.ts";
 
 const filterQuery = 'fields=name,flags,postalCode,idd,ccn3,cca3,cca2'
 const urls = {
@@ -29,7 +30,7 @@ function assignOption(data: CountryType[]) {
   return indexedDataset
 }
 
-function checkRequired(country?: string , phone?: string) {
+function checkRequired(country?: string, phone?: string) {
   const errorSet = new Set<string>()
   if (!country) {
     errorSet.add('Country is required')
@@ -74,17 +75,18 @@ export default defineComponent({
       return options.value[modelValues?.country]?.allData.cca3
     })
 
-    const theme = useThemeTansformer(BaseTheme, props.size)
-    const errors = ref([])
+
+    const theme = ref(themeConfig(mergeThemes(ABaseTheme, props.themeOverride), props.size))
+    const errors = ref<string[]>([])
 
     async function fetchCountries() {
       loading.value.country = true
       try {
         const response = await fetch(urls.countries)
         const data = await response.json() as CountryType[]
-        options.value = assignOption(data.length ? data : CountryPlaceholderData as CountryType[])
+        options.value = assignOption(data.length ? data : countryDataPlaceholder as CountryType[])
       } catch (e) {
-        options.value = assignOption(CountryPlaceholderData as CountryType[])
+        options.value = assignOption(countryDataPlaceholder as CountryType[])
       } finally {
         loading.value.country = false
       }
@@ -159,6 +161,7 @@ export default defineComponent({
     watch(() => modelValues.country, () => emit('update:countryValue', modelValues.country))
     watch(() => modelValues.phone, () => emit('update:phoneValue', modelValues.phone))
     watch(() => modelValues.dialingNumber, () => emit('update:dialingValue', modelValues.dialingNumber))
+    watch(() => props.themeOverride, () => theme.value = themeConfig(mergeThemes(ABaseTheme, props.themeOverride), props.size))
 
     onMounted(async () => {
       await fetchCountries()
@@ -186,7 +189,6 @@ export default defineComponent({
   <a-input-group
       :errors="errors"
       :label="label"
-      :select-width="selectWidth"
       :show-label="showLabel"
       :show-required="showRequired"
       :theme="theme"
@@ -197,6 +199,7 @@ export default defineComponent({
         :loading="loading.country"
         :options="options"
         :theme="theme"
+        :width="selectWidth"
         @update:value="handleSelectCountry"
     />
     <a-text-input

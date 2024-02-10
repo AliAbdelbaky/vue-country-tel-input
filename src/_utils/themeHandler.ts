@@ -1,7 +1,6 @@
-import {ThemeType} from '../assets/types/theme.type.ts';
+import {Sizes, ThemeType} from "@/_utils/theme.type.ts";
 
-export type Sizes = 'tiny' | 'small' | 'medium' | 'large'
-export default function themeConfig(theme: ThemeType, size: Sizes, prefix?: string) {
+export function themeConfig(theme: ThemeType, size: Sizes, prefix?: string) {
     const indexKeyBasedSize = {
         'tiny': 0,
         'small': 1,
@@ -48,4 +47,22 @@ export default function themeConfig(theme: ThemeType, size: Sizes, prefix?: stri
     }
 
     return GTC(theme, size, prefix)
+}
+
+export function mergeThemes(baseTheme: ThemeType, themeOverride?: Partial<ThemeType>): ThemeType {
+    const mergedTheme:any = {...baseTheme};
+    if (!themeOverride) return mergedTheme;
+
+    Object.keys(themeOverride).forEach((key) => {
+        const _key = key as keyof ThemeType;
+        if (themeOverride.hasOwnProperty(_key) && mergedTheme.hasOwnProperty(_key)) {
+            if (typeof themeOverride[_key] === 'object' && typeof mergedTheme[_key] === 'object') {
+                mergedTheme[_key] = {...mergedTheme[_key], ...themeOverride[_key]};
+            } else {
+                mergedTheme[_key] = themeOverride[_key];
+            }
+        }
+    });
+
+    return mergedTheme;
 }

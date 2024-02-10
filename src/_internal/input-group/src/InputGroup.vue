@@ -5,20 +5,18 @@ import {inputGroupProps} from './interface.ts'
 export default defineComponent({
   name: 'AInputGroup',
   props: inputGroupProps,
-  setup(props) {
-    const attributes = computed(() => ({
-      style: [props.theme,{'--select-w':props.selectWidth}]
-    }))
-    return {
-      attributes
-    }
+  setup() {
+    return {}
   }
 })
 
 </script>
 
 <template>
-  <div class="a--tell-input-wrapper-form" v-bind="attributes">
+  <div
+      class="a--tell-input-wrapper-form"
+      :style="theme"
+  >
     <label
         v-if="showLabel"
         class="a-form-item-label"

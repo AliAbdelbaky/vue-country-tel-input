@@ -1,7 +1,7 @@
 <script lang="ts">
 import {computed, defineComponent, ref, watch} from 'vue'
 import {textInputProps, TextInputValue} from './interface.ts'
-import LoadingIcon from "@/components/countryPhoneTell/partial/loadingIcon.vue";
+import LoadingIcon from "@/_placeholder/icons/loading.vue";
 
 export default defineComponent({
   name: 'ATextInput',

@@ -1,3 +1,4 @@
+export type Sizes = 'tiny' | 'small' | 'medium' | 'large'
 export interface ThemeType {
     text: TextType;
     height: HeightType;

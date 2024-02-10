@@ -27,7 +27,6 @@ const loggerItems = computed(()=>({
         v-model:country-value="country"
         v-model:phone-value="number"
         v-model:dialing-value="dialing"
-        size="large"
         ref="inputRef"
     />
 

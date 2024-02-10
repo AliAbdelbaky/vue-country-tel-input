@@ -1,1 +1,0 @@
-export { default as VueCountryTelInput } from './countryPhoneTell/index.vue'

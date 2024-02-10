@@ -5,7 +5,7 @@ import {type _SingleOption, selectInputProps} from './interface.ts'
 import OptionIcon from "./partials/optIcon.vue";
 import OptionLabel from "./partials/optLabel.vue";
 
-import LoadingIcon from "@/components/countryPhoneTell/partial/loadingIcon.vue";
+import LoadingIcon from "@/_placeholder/icons/loading.vue";
 import {createPopper} from "@popperjs/core";
 import {CountryOption} from "@/_utils/country.types.ts";
 
@@ -141,6 +141,7 @@ export default defineComponent({
       ref="selectRef"
       class="a-tell-select"
       v-bind="attributes"
+      :style="{maxWidth: width}"
   >
     <div class="a-base-selection-label">
       <input
@@ -189,6 +190,7 @@ export default defineComponent({
 </template>
 <style lang="scss">
 .a-tell-select {
+  width: 20%;
   &:focus-within {
     .a-base-selection-overlay {
       opacity: 0.1;
