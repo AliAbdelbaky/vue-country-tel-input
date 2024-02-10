@@ -15,7 +15,7 @@ interface AAQCreateOptions {
     componentPrefix?: string
 }
 
-function create({componentPrefix = 'A', components = []}: AAQCreateOptions = {}): AAQInstance {
+function create({componentPrefix = 'Vue', components = []}: AAQCreateOptions = {}): AAQInstance {
     const installTargets: App[] = []
 
     function registerComponent(
@@ -27,6 +27,7 @@ function create({componentPrefix = 'A', components = []}: AAQCreateOptions = {})
 
         const registered = app.component(componentPrefix + name)
         let provideKey = `${componentPrefix + name}Options`
+        console.log('provideKey', provideKey)
         app.provide(provideKey, options)
 
         if (!registered) {

@@ -37,7 +37,7 @@
   "browser": {
     "./styles.css": "./dist/style.css"
   },
-  "types": "./dist/pluginBuilder.d.ts",
+  "types": "./dist/components.d.ts",
   "license": "MIT",
   "files": [
     "dist"
@@ -47,6 +47,7 @@
     "build": "vue-tsc && vite build",
     "build:package": "rollup -c",
     "gen-version": "node scripts/gen-version.js",
+    "publish:npm": "npm run build && npm publish --access public",
     "preview": "vite preview"
   },
   "dependencies": {

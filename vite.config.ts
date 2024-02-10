@@ -11,7 +11,7 @@ export default defineConfig({
         vue(),
         typescript2({
             check: false,
-            include: ["src/country-tel-input/**"],
+            include: ["src/country-tel-input/*/*.vue","src/components.ts"],
             tsconfigOverride: {
                 compilerOptions: {
                     sourceMap: true,

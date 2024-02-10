@@ -68,10 +68,11 @@ export default defineComponent({
     // const mergedProps = reactive({..._defaultValues, ...props})
     const allOptions = ref(mergedProps())
 
-    function mergedProps(): typeof props{
-      let propsFromInstallFunction = inject('ACountryTelInputOptions') as Partial<CountryTelInputProps>
-      if (!propsFromInstallFunction) return props
-      return Object.assign(props, propsFromInstallFunction)
+    function mergedProps(): typeof props {
+      const _props = {...props}
+      let propsFromInstallFunction = inject('VueCountryTelInputOptions') as Partial<CountryTelInputProps>
+      if (!propsFromInstallFunction) return _props
+      return Object.assign(_props, propsFromInstallFunction)
     }
 
     mergedProps()

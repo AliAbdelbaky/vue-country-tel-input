@@ -22,7 +22,7 @@ const loggerItems = computed(()=>({
 
 <template>
   <div class="wrapper">
-    <ACountryTelInput
+    <VueCountryTelInput
         v-model:country-value="country"
         v-model:phone-value="number"
         v-model:dialing-value="dialing"
