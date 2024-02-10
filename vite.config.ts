@@ -8,7 +8,7 @@ export default defineConfig({
         vue(),
         typescript2({
             check: false,
-            include: ["src/pluginBuilder.ts","src/components/index.ts", "src/components/*/*.vue"],
+            include: ["src/country-tel-input/**"],
             tsconfigOverride: {
                 compilerOptions: {
                     sourceMap: true,
@@ -33,7 +33,7 @@ export default defineConfig({
                 globals: {
                     vue: 'Vue'
                 },
-                exports: 'named'
+
             }
         }
     },

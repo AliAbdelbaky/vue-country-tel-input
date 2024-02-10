@@ -42,7 +42,7 @@ export default defineComponent({
 
     const selectRef = ref<HTMLElement | null>(null)
     const selectValue = ref(props.value)
-    const filteredOption = ref<CountryOption>(props.options || {})
+    const filteredOption = ref<CountryOption>(props.options)
 
     const popoverRef = ref()
     const showPopover = ref(false)
@@ -51,7 +51,6 @@ export default defineComponent({
     const debounceTimer = ref<number | undefined>(undefined)
     const createPopover = () => {
       const ele = selectRef?.value as HTMLElement
-      console.log(ele.offsetWidth)
       popoverVars.value = {
         // maxHeight,
         maxWidth: ele.offsetWidth + 'px',
@@ -79,7 +78,7 @@ export default defineComponent({
     function handleSearch(query?: string | null) {
       clearTimeout(debounceTimer.value);
       const exists = query && query.trim().length > 0
-      const options = props.options || {}
+      const options = props.options
       if (!exists) {
         filteredOption.value = options
         return
@@ -91,7 +90,7 @@ export default defineComponent({
         const searchTextLower = query.toLowerCase().trim();
         const indexedDataset = options
 
-        const filteredList: any = {};
+        const filteredList: typeof props.options = {};
 
         for (const key in indexedDataset) {
           if (indexedDataset.hasOwnProperty(key)) {
@@ -101,7 +100,7 @@ export default defineComponent({
             }
           }
         }
-        filteredOption.value = filteredList
+        filteredOption.value = !!Object.keys(filteredList).length ? filteredList : options
       }
     }
 
@@ -172,20 +171,23 @@ export default defineComponent({
     </div>
     <div class="a-base-selection__state-border"/>
     <teleport to="body">
-      <APopover
-          v-show="showPopover"
-          ref="popoverRef"
-          :active-value="selectValue"
-          :options="filteredOption"
-          :renderLabel="renderLabel"
-          :style="popoverVars"
-          :theme="theme"
-          @update:select="handleUpdateValue"
-      />
+      <transition mode="out-in" name="a-popover-transition">
+        <APopover
+            v-show="showPopover"
+            ref="popoverRef"
+            :active-value="selectValue"
+            :options="filteredOption"
+            :renderLabel="renderLabel"
+            :style="popoverVars"
+            :theme="theme"
+            @update:select="handleUpdateValue"
+        />
+      </transition>
+
     </teleport>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 .a-tell-select {
   &:focus-within {
     .a-base-selection-overlay {
@@ -321,5 +323,24 @@ export default defineComponent({
   border-bottom-right-radius: 0 !important;
   z-index: 1;
   transition: all .3s var(--a-transitions-bezier)
+}
+
+.a-popover-transition-enter-active {
+  animation: a-popover-transition-in 0.2s;
+}
+
+.a-popover-transition-leave-active {
+  animation: a-popover-transition-in 0.2s reverse;
+}
+
+@keyframes a-popover-transition-in {
+  0% {
+    top: 5px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
 }
 </style>

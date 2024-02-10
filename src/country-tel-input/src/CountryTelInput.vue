@@ -8,6 +8,7 @@ import useThemeTansformer from "@/composables/themeTransformer.ts";
 import BaseTheme from "@/components/countryPhoneTell/data.ts";
 import CountryPlaceholderData from "@/assets/countryPlaceholder.ts";
 import type {SingleOption} from "@/assets/types/country.type.ts";
+import parsePhoneNumber, {isPossiblePhoneNumber, isValidPhoneNumber} from "libphonenumber-js";
 
 const filterQuery = 'fields=name,flags,postalCode,idd,ccn3,cca3,cca2'
 const urls = {
@@ -28,48 +29,35 @@ function assignOption(data: CountryType[]) {
   return indexedDataset
 }
 
-
-const _dummyData = {
-  'egypt': {
-    label: 'egypt',
-    value: 'egypt',
-    allData: {
-      name: {
-        common: 'egypt',
-        official: 'egypt',
-        nativeName: {
-          eng: {
-            official: 'جمهورية مصر العربية',
-            common: 'مصر'
-          }
-        }
-      },
-      flags: {
-        png: 'https://restcountries.com/data/egy.svg',
-        svg: 'https://restcountries.com/data/egy.svg',
-        alt: 'egypt'
-      },
-      postalCode: {
-        format: 'NNNNN',
-        regex: '^(\\d{5})$'
-      },
-      idd: {
-        root: '+20',
-        suffixes: ['0']
-      },
-      cca2: 'EG',
-      cca3: 'EGY',
-      ccn3: '818',
-    }
+function checkRequired(country?: string , phone?: string) {
+  const errorSet = new Set<string>()
+  if (!country) {
+    errorSet.add('Country is required')
   }
+  if (!phone) {
+    errorSet.add('Phone Number is required')
+  }
+  return {
+    valid: errorSet.size === 0,
+    errors: Array.from(errorSet)
+  }
+}
+
+const _defaultValues = {
+  modelValues: {
+    country: null,
+    phone: null,
+    dialingNumber: null
+  },
+  errors: []
 }
 export default defineComponent({
   name: 'CountryTelInput',
   components: {AInputGroup, ASelectInput, ATextInput},
   props: countryTelInputProps,
-  emits: ['update:countryValue', 'update:phoneValue'],
+  emits: ['update:countryValue', 'update:phoneValue', 'update:dialingValue'],
   setup(props, {emit, expose}) {
-    const options = ref<CountryOption>(_dummyData)
+    const options = ref<CountryOption>({})
     const loading = ref({
       country: false,
       dialingCode: false,
@@ -79,14 +67,14 @@ export default defineComponent({
     const modelValues = reactive({
       country: props.countryValue,
       phone: props.phoneValue,
-      dialingNumber: null as number | null
+      dialingNumber: props.dialingValue
     })
     const countryCCA = computed(() => {
       if (!modelValues?.country) return null
       return options.value[modelValues?.country]?.allData.cca3
     })
 
-    const theme = useThemeTansformer(BaseTheme, 'medium')
+    const theme = useThemeTansformer(BaseTheme, props.size)
     const errors = ref([])
 
     async function fetchCountries() {
@@ -118,11 +106,66 @@ export default defineComponent({
       }
     }
 
+    function reset() {
+      Object.assign(modelValues, _defaultValues.modelValues)
+      errors.value = []
+    }
+
+    function validate() {
+      // @ts-ignore
+      const ALL_COUNTRY_DATA = options.value[modelValues?.country] || {}
+
+      const CCA2 = ALL_COUNTRY_DATA?.allData?.cca2 || 'EG'
+      const vModelNumber = modelValues.phone || ''
+
+      const errorSet = new Set<string>()
+
+      let phoneNumber = vModelNumber
+      let country = null
+
+      const {valid, errors: requiredErrors} = checkRequired(modelValues.country, modelValues.phone)
+
+      if (!valid) {
+        requiredErrors.forEach(x => errorSet.add(x))
+      }
+
+      // @ts-ignore
+      const parsedNumber = parsePhoneNumber(vModelNumber, CCA2);
+
+      if (parsedNumber) {
+        phoneNumber = parsedNumber.nationalNumber
+        country = parsedNumber.country
+        const _isPossiblePhoneNumber = isPossiblePhoneNumber(vModelNumber, country)
+        const _isValidPhoneNumber = isValidPhoneNumber(vModelNumber, country)
+
+        if (!_isValidPhoneNumber || !_isPossiblePhoneNumber) {
+          errorSet.add('Invalid Phone Number')
+        }
+      } else {
+        errorSet.add('Invalid Phone Number')
+      }
+
+      modelValues.phone = phoneNumber ?? ''
+      errors.value = Array.from(errorSet)
+
+      return {
+        valid: errorSet.size === 0,
+        errors: Array.from(errorSet),
+        model: {...modelValues},
+        countryInfo: () => ALL_COUNTRY_DATA?.allData || {}
+      }
+    }
+
     watch(() => modelValues.country, () => emit('update:countryValue', modelValues.country))
     watch(() => modelValues.phone, () => emit('update:phoneValue', modelValues.phone))
+    watch(() => modelValues.dialingNumber, () => emit('update:dialingValue', modelValues.dialingNumber))
 
     onMounted(async () => {
       await fetchCountries()
+    })
+    expose({
+      reset,
+      validate
     })
     return {
       loading,
@@ -142,8 +185,11 @@ export default defineComponent({
 <template>
   <a-input-group
       :errors="errors"
+      :label="label"
+      :select-width="selectWidth"
+      :show-label="showLabel"
+      :show-required="showRequired"
       :theme="theme"
-      label="hello"
   >
     <ASelectInput
         v-model:value="modelValues.country"
@@ -164,10 +210,6 @@ export default defineComponent({
       </template>
     </a-text-input>
   </a-input-group>
-  <pre>
-{{ countryCCA }}
-  {{ modelValues }}
-  </pre>
 </template>
 
 <style scoped>

@@ -5,7 +5,7 @@ import {ExtractBasePropsType} from "@/_utils/extractProps.ts";
 export const popoverProps = {
     options: Object as PropType<CountryOption>,
     style: {
-        type: Object as PropType<CSSStyleDeclaration>,
+        type: Object,
         default: null
     },
     renderLabel: {

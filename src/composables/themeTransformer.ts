@@ -1,6 +1,6 @@
 import {ThemeType} from '../assets/types/theme.type.ts';
 
-type Sizes = 'tiny' | 'small' | 'medium' | 'large'
+export type Sizes = 'tiny' | 'small' | 'medium' | 'large'
 export default function themeConfig(theme: ThemeType, size: Sizes, prefix?: string) {
     const indexKeyBasedSize = {
         'tiny': 0,

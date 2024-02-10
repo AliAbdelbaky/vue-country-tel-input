@@ -1,9 +1,11 @@
 import {ExtractBasePropsType} from "@/_utils/extractProps.ts";
+import {PropType} from "vue";
+import {Sizes} from "@/composables/themeTransformer.ts";
 
 export const countryTelInputProps = {
     size: {
-        type: String,
-        default: 'default'
+        type: String as PropType<Sizes>,
+        default: 'medium'
     },
     label: {
         type: String,
@@ -22,12 +24,16 @@ export const countryTelInputProps = {
         default: null
     },
     countryValue: {
-        type: String || null,
-        default: null
+        type: String || null || undefined,
+        // default:()=> null
     },
     phoneValue: {
-        type: String || null,
-        default: null
+        type: String || null || undefined,
+        // default: null
+    },
+    dialingValue: {
+        type: String || null || undefined,
+        // default: null
     },
     selectWidth: {
         type: String,

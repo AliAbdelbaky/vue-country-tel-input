@@ -1,5 +1,5 @@
 import type {App} from 'vue'
-import {VueCountryTelInput} from './components/index.ts'
+import {CountryTelInput} from '@/country-tel-input'
 import {type IProps} from './assets/props.type.ts'
 import {type ThemeType} from './assets/types/theme.type.ts'
 
@@ -15,8 +15,7 @@ export default {
         selectWidth: '20%',
         themeOverride: undefined
     }) => {
-        app.component('VueCountryTelInput', VueCountryTelInput)
-        app.provide('msg', options.msg)
+        app.component('VueCountryTelInput', CountryTelInput)
         app.provide('size', options.size)
         app.provide('label', options.label)
         app.provide('showLabel', options.showLabel)
@@ -25,4 +24,4 @@ export default {
         app.provide('themeOverride', options.themeOverride)
     }
 }
-export {VueCountryTelInput}    // export the component and the theme type
+export {CountryTelInput}    // export the component and the theme type

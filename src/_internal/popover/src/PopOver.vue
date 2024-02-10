@@ -16,9 +16,6 @@ export default defineComponent({
         maxWidth: props.style?.maxWidth
       }
     }))
-    console.log(attributes.value)
-
-
     return {
       attributes
     }
@@ -29,7 +26,12 @@ export default defineComponent({
 
 <template>
   <div :style="theme" class="a-popover-menu">
-    <div class="a-popover-menu-wrapper" v-bind="attributes">
+    <TransitionGroup
+        tag="div"
+        name="a-popover-items-fade-transition"
+        class="a-popover-menu-wrapper"
+        v-bind="attributes"
+    >
       <div
           v-for="(item,key) in options"
           :key="key"
@@ -40,7 +42,7 @@ export default defineComponent({
       >
         <component :is="renderLabel(item)"/>
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -121,5 +123,21 @@ export default defineComponent({
 .a-popover-menu::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: 2px;
+}
+
+.a-popover-items-fade-transition-move,
+.a-popover-items-fade-transition-enter-active,
+.a-popover-items-fade-transition-leave-active {
+  transition: all 0.1ms var(--a-transitions-bezier);
+}
+
+.a-popover-items-fade-transition-enter-from,
+.a-popover-items-fade-transition-leave-to {
+  opacity: 0;
+}
+
+.a-popover-items-fade-transition-leave-active {
+  opacity: 0;
+  position: absolute;
 }
 </style>
