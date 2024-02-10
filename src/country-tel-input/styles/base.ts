@@ -6,7 +6,7 @@ import {
     PaddingType,
     TextType, ThemeType,
     TransitionsType
-} from "@/_utils/theme.type.ts"
+} from "@/_utils/theme.type"
 
 const text: TextType = {
     tiny: '14px',

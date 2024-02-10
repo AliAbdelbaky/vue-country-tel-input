@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue'
-import {CountryTelInput} from '@/country-tel-input'
 
 const inputRef = ref<any>(null)
 const reset = () => {
@@ -23,7 +22,7 @@ const loggerItems = computed(()=>({
 
 <template>
   <div class="wrapper">
-    <CountryTelInput
+    <ACountryTelInput
         v-model:country-value="country"
         v-model:phone-value="number"
         v-model:dialing-value="dialing"

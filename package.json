@@ -1,7 +1,7 @@
 {
   "name": "@aiabdelbaqy/vue-country-tel-input",
   "private": false,
-  "version": "0.0.4",
+  "version": "1.0.0",
   "keywords": [
     "vue-country-tel-input",
     "vue",
@@ -26,7 +26,6 @@
     "input-tell-number",
     "phone number"
   ],
-  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "unpkg": "dist/index.js",
@@ -46,16 +45,38 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "build:package": "rollup -c",
+    "gen-version": "node scripts/gen-version.js",
     "preview": "vite preview"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "deepmerge": "^4.3.1",
+    "rollup-plugin-esbuild": "^6.1.1",
     "vue": "^3.3.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.15",
+    "@babel/eslint-parser": "^7.22.15",
+    "@babel/generator": "^7.22.15",
+    "@babel/parser": "^7.22.16",
+    "@babel/preset-env": "^7.22.15",
+    "@babel/traverse": "^7.22.15",
+    "@lylajs/web": "^1.2.2",
     "@vitejs/plugin-vue": "^4.5.2",
     "libphonenumber-js": "^1.10.53",
     "rollup-plugin-typescript2": "^0.36.0",
+    "rollup": "^4.3.0",
+    "rollup-plugin-esbuild": "^6.1.0",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
     "sass": "^1.70.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

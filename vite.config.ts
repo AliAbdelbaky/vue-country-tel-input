@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue'
 import typescript2 from "rollup-plugin-typescript2";
 import {fileURLToPath, URL} from 'node:url';
 // https://vitejs.dev/config/
+/**
+ * @type {import('vite').UserConfig}
+ */
 export default defineConfig({
     plugins: [
         vue(),
@@ -22,9 +25,9 @@ export default defineConfig({
     build: {
         cssCodeSplit: false,
         lib: {
-            entry: 'src/pluginBuilder.ts',
+            entry: 'src/index.ts',
             formats: ['es', 'cjs'],
-            name: 'pluginBuilder',
+            name: 'index',
             fileName: (format) => format === 'es' ? "index.js" : `index.cjs`
         },
         rollupOptions: {
@@ -33,7 +36,7 @@ export default defineConfig({
                 globals: {
                     vue: 'Vue'
                 },
-
+                exports: 'named'
             }
         }
     },

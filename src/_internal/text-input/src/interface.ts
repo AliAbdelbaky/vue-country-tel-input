@@ -1,4 +1,4 @@
-import {ExtractBasePropsType} from '@/_utils/extractProps.ts'
+import {ExtractBasePropsType} from '@/_utils/extractProps'
 export const textInputProps = {
     value: {
         type: String || null,

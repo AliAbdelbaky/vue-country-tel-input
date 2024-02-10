@@ -1,1 +1,1 @@
-export {default as ABaseTheme} from './base.ts'
+export {default as ABaseTheme} from './base'

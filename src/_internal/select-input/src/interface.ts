@@ -1,5 +1,5 @@
 import type {CountryOption,SingleOption} from "@/_utils/country.types.ts";
-import {ExtractBasePropsType} from "@/_utils/extractProps.ts";
+import {ExtractBasePropsType} from "@/_utils/extractProps";
 
 import type {PropType} from 'vue'
 

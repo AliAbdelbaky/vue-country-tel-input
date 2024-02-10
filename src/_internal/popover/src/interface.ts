@@ -1,6 +1,6 @@
 import {PropType} from "vue";
-import {CountryOption, SingleOption} from "@/_utils/country.types.ts";
-import {ExtractBasePropsType} from "@/_utils/extractProps.ts";
+import {CountryOption, SingleOption} from "@/_utils/country.types";
+import {ExtractBasePropsType} from "@/_utils/extractProps";
 
 export const popoverProps = {
     options: Object as PropType<CountryOption>,

@@ -1,11 +1,11 @@
 <script lang="ts">
-import {computed, defineComponent, onMounted, reactive, ref, watch} from 'vue'
+import {computed, defineComponent, inject, onMounted, reactive, ref, watch} from 'vue'
 import parsePhoneNumber, {isPossiblePhoneNumber, isValidPhoneNumber} from "libphonenumber-js";
 
 import {AInputGroup, ASelectInput, ATextInput} from '@/_internal/index.ts'
-import {countryTelInputProps} from './interface.ts'
+import {CountryTelInputProps, countryTelInputProps} from './interface.ts'
 
-import type {CountryOption, CountryType,SingleOption} from "@/_utils/country.types.ts";
+import type {CountryOption, CountryType, SingleOption} from "@/_utils/country.types.ts";
 import {ABaseTheme} from "../styles";
 import countryDataPlaceholder from "@/_placeholder/countries.ts"
 
@@ -64,6 +64,17 @@ export default defineComponent({
       dialingCode: false,
       validatePhone: false
     })
+
+    // const mergedProps = reactive({..._defaultValues, ...props})
+    const allOptions = ref(mergedProps())
+
+    function mergedProps(): typeof props{
+      let propsFromInstallFunction = inject('ACountryTelInputOptions') as Partial<CountryTelInputProps>
+      if (!propsFromInstallFunction) return props
+      return Object.assign(props, propsFromInstallFunction)
+    }
+
+    mergedProps()
 
     const modelValues = reactive({
       country: props.countryValue,
@@ -177,7 +188,8 @@ export default defineComponent({
       theme,
       errors,
       countryCCA,
-      handleSelectCountry
+      handleSelectCountry,
+      allOptions
     }
   }
 })
@@ -186,11 +198,12 @@ export default defineComponent({
 </script>
 
 <template>
+
   <a-input-group
       :errors="errors"
-      :label="label"
-      :show-label="showLabel"
-      :show-required="showRequired"
+      :label="allOptions.label"
+      :show-label="allOptions.showLabel"
+      :show-required="allOptions.showRequired"
       :theme="theme"
   >
     <ASelectInput
@@ -198,6 +211,7 @@ export default defineComponent({
         :invalid="!!errors.length"
         :loading="loading.country"
         :options="options"
+        :placeholder="allOptions.selectPlaceholder"
         :theme="theme"
         :width="selectWidth"
         @update:value="handleSelectCountry"
@@ -206,6 +220,7 @@ export default defineComponent({
         v-model:value="modelValues.phone"
         :invalid="!!errors.length"
         :loading="loading.dialingCode"
+        :placeholder="allOptions.phonePlaceholder"
         :theme="theme"
     >
       <template v-if="modelValues.dialingNumber" #prefix>

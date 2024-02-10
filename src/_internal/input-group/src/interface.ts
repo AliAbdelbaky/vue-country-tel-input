@@ -1,4 +1,4 @@
-import {ExtractBasePropsType} from '@/_utils/extractProps.ts'
+import {ExtractBasePropsType} from '@/_utils/extractProps'
 export const inputGroupProps = {
     theme: {
         type: String || null,

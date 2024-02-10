@@ -1,4 +1,4 @@
-import {Sizes, ThemeType} from "@/_utils/theme.type.ts";
+import {Sizes, ThemeType} from "@/_utils/theme.type";
 
 export function themeConfig(theme: ThemeType, size: Sizes, prefix?: string) {
     const indexKeyBasedSize = {

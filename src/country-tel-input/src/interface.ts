@@ -1,6 +1,6 @@
-import {ExtractBasePropsType} from "@/_utils/extractProps.ts";
+import {ExtractBasePropsType} from "@/_utils/extractProps";
 import {PropType} from "vue";
-import {Sizes, ThemeType} from "@/_utils/theme.type.ts";
+import {Sizes, ThemeType} from "@/_utils/theme.type";
 
 export const countryTelInputProps = {
     size: {
@@ -38,6 +38,14 @@ export const countryTelInputProps = {
     selectWidth: {
         type: String,
         default: '20%'
+    },
+    selectPlaceholder: {
+        type: String,
+        default: 'Search'
+    },
+    phonePlaceholder: {
+        type: String,
+        default: 'Enter phone number'
     }
 }
 export type CountryTelInputProps = ExtractBasePropsType<typeof countryTelInputProps>;
